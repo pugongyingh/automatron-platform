@@ -1,2 +1,3 @@
 [build]
   functions = "functions/"
+  command = "tar xvzf prebuilt-libraries/isolated-vm.tar.gz"
