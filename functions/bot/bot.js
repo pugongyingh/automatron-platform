@@ -38,14 +38,22 @@ async function handleEvent(event) {
     })
   }
   await client.replyMessage(event.replyToken, responses)
+  return 'OK'
 }
 
 exports.handler = async function(event, context) {
   try {
     const eventBody = JSON.parse(event.body)
     const results = await Promise.all(
-      eventBody.events.map(handleEvent)
+      eventBody.events.map(async event => {
+        try {
+          return await handleEvent(event)
+        } catch (err) {
+          console.error('Failed to handle event...', err)
+        }
+      })
     )
+    console.log('OK, responses:', results)
     return { statusCode: 200, body: results.join('\n') }
   } catch (err) {
     console.error(err)
