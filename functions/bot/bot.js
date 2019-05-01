@@ -24,11 +24,20 @@ async function handleEvent(event) {
   if (event.message.type !== 'text') {
     return `Sorry, I don’t handle messages of type ${event.message.type}`
   }
-  const result = await execute(event.message.text)
-  const results = [
-    require('util').inspect(result, { depth: 5 })
-  ]
-  await client.replyMessage(event.replyToken, {
+  const responses = []
+  try {
+    const result = await execute(event.message.text)
+    responses.push({
+      type: 'text',
+      text: require('util').inspect(result, { depth: 5 })
+    })
+  } catch (e) {
+    responses.push({
+      type: 'text',
+      text: `Error: ${e}`
+    })
+  }
+  await client.replyMessage(event.replyToken, responses{
     type: 'text',
     text: String(results)
   })
