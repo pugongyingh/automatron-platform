@@ -37,10 +37,7 @@ async function handleEvent(event) {
       text: `Error: ${e}`
     })
   }
-  await client.replyMessage(event.replyToken, responses{
-    type: 'text',
-    text: String(results)
-  })
+  await client.replyMessage(event.replyToken, responses)
 }
 
 exports.handler = async function(event, context) {
