@@ -1,10 +1,11 @@
-const ivm = require('isolated-vm')
-const isolate = new ivm.Isolate({ memoryLimit: 128 })
+const {VM} = require('vm2')
 
 async function hello() {
-  let context = isolate.createContextSync()
-  let script = isolate.compileScriptSync('"Hello, " + "world"')
-  let result = script.runSync(context)
+  const vm = new VM({
+    timeout: 100,
+    sandbox: {}
+  })
+  let result = vm.run('1+1')
   return result
 }
 
