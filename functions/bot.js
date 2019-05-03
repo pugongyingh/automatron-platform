@@ -1,21 +1,12 @@
 const {VM} = require('vm2')
 const line = require('@line/bot-sdk');
-
+const {execute} = require('../lib/ScriptExecutor')
 const config = {
   channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
   channelSecret: process.env.LINE_CHANNEL_SECRET
 }
 
 const client = new line.Client(config)
-
-async function execute(code) {
-  const vm = new VM({
-    timeout: 100,
-    sandbox: {}
-  })
-  let result = vm.run(code)
-  return result
-}
 
 async function handleEvent(event) {
   if (event.type !== 'message') {
