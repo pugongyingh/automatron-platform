@@ -2,10 +2,13 @@ const workerFarm = require('worker-farm')
 require('./ScriptExecutorWorker')
 
 const farmOptions = {
+  workerOptions: {
+    execArgv: ['--max-old-space-size=32']
+  },
   maxConcurrentWorkers: 1,
   maxConcurrentCallsPerWorker: 1,
   maxCallTime: 3000,
-  maxRetries: 1,
+  maxRetries: 0,
   autoStart: true
 }
 

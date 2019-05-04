@@ -19,6 +19,12 @@ it('should support fetch', async () => {
   expect(await run('fetch("http://example.com/").then(r => r.text())')).toMatch(/Example Domain/)
 })
 
+it('should protect against too much memory', async () => {
+  await expect(run('Array(10000000)')).rejects.toMatchObject({
+    name: 'ProcessTerminatedError'
+  })
+})
+
 afterAll(() => {
   ScriptExecutor.destroy()
 })
