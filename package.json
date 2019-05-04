@@ -1,7 +1,29 @@
 {
   "dependencies": {
     "@line/bot-sdk": "^6.7.0",
+    "node-fetch": "^2.5.0",
     "vm2": "^3.8.0",
     "worker-farm": "^1.6.0"
-  }
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.12",
+    "jest": "^24.7.1"
+  },
+  "name": "automatron-platform",
+  "description": "Bot",
+  "version": "0.0.1",
+  "main": "main.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dtinth/automatron-platform.git"
+  },
+  "author": "Thai Pangsakulyanont <dtinth@spacet.me>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dtinth/automatron-platform/issues"
+  },
+  "homepage": "https://github.com/dtinth/automatron-platform#readme"
 }

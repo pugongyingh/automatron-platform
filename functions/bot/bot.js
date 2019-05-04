@@ -1,6 +1,6 @@
-const {VM} = require('vm2')
+const { VM } = require('vm2')
 const line = require('@line/bot-sdk');
-const {execute} = require('./lib/ScriptExecutor')
+const { execute } = require('./lib/ScriptExecutor')
 const config = {
   channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
   channelSecret: process.env.LINE_CHANNEL_SECRET
@@ -17,7 +17,7 @@ async function handleEvent(event) {
   }
   const responses = []
   try {
-    const result = await execute(event.message.text)
+    const result = await execute({ code: event.message.text })
     responses.push({
       type: 'text',
       text: require('util').inspect(result, { depth: 5 })
@@ -32,7 +32,7 @@ async function handleEvent(event) {
   return 'OK'
 }
 
-exports.handler = async function(event, context) {
+exports.handler = async function (event, context) {
   try {
     const eventBody = JSON.parse(event.body)
     const results = await Promise.all(
