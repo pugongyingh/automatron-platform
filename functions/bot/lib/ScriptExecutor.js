@@ -1,4 +1,5 @@
 const workerFarm = require('worker-farm')
+const v8 = require('v8')
 require('./ScriptExecutorWorker')
 
 const farmOptions = {
@@ -19,12 +20,13 @@ const workers = workerFarm(farmOptions, require.resolve('./ScriptExecutorWorker'
  * @param {string} options.code
  */
 async function execute(options) {
-  return await new Promise((resolve, reject) => {
+  const result = await new Promise((resolve, reject) => {
     workers(options, (err, out) => {
       if (err) return reject(err)
       resolve(out)
     })
   })
+  return v8.deserialize(Buffer.from(result, 'base64'))
 }
 
 exports.execute = execute

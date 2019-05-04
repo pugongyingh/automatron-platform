@@ -1,5 +1,6 @@
 const { VM } = require('vm2')
 const fetch = require('node-fetch')
+const v8 = require('v8')
 
 async function execute(code) {
   const vm = new VM({
@@ -16,7 +17,7 @@ module.exports = async function (options, callback) {
   let err
   let res
   try {
-    res = await execute(options.code)
+    res = v8.serialize(await execute(options.code)).toString('base64')
   } catch (error) {
     err = error
   }
