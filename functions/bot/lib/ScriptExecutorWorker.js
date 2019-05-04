@@ -4,7 +4,7 @@ const v8 = require('v8')
 
 async function execute(code) {
   const vm = new VM({
-    timeout: 180,
+    timeout: 480,
     sandbox: {
       fetch
     }
