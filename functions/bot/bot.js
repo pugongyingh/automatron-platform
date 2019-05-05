@@ -73,7 +73,7 @@ async function handleEvent(event) {
     })
   }
   await client.replyMessage(event.replyToken, responses)
-  return 'OK'
+  return 'All good'
 }
 
 exports.handler = async function(event, context) {
