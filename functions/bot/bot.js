@@ -32,13 +32,21 @@ async function handleEvent(event) {
   }
   const responses = []
   try {
-    const dataRef = admin
+    const stateRef = admin
       .database()
       .ref('state')
       .child(userId)
       .child('data')
-    const state = (await dataRef.once('value')).val() || undefined
-    const result = await execute({ code: event.message.text, state })
+    const programRef = admin
+      .database()
+      .ref('ref')
+      .child(userId)
+      .child('source')
+    const statePromise = stateRef.once('value')
+    const programPromise = programRef.once('value')
+    const state = (await statePromise).val() || undefined
+    const program = (await programPromise).val() || undefined
+    const result = await execute({ code: event.message.text, state, program })
     for (const message of result.logs) {
       responses.push({
         type: 'text',
@@ -58,7 +66,7 @@ async function handleEvent(event) {
       })
     }
     if (result.nextState) {
-      await dataRef.set(result.nextState)
+      await stateRef.set(result.nextState)
     }
   } catch (e) {
     responses.push({
