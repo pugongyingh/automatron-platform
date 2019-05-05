@@ -57,6 +57,38 @@ it('should support stateful computation', async () => {
   expect(result.output).toBe(`'{"things":[42]}'`)
 })
 
+it('supports serializing regexps', async () => {
+  let result
+  result = await run('state.pattern = /m.+w/')
+  expect(result.nextState).toBeTruthy()
+  result = await run('state.pattern.exec("test meow test")[0]', {
+    state: result.nextState,
+  })
+  expect(result.output).toBe(`'meow'`)
+})
+
+it('supports serializing dates', async () => {
+  let result
+  result = await run('state.time = new Date()')
+  expect(result.nextState).toBeTruthy()
+  result = await run('state.time.getFullYear()', {
+    state: result.nextState,
+  })
+  expect(result.output).toMatch(/^\d+$/)
+})
+
+it('supports serializing maps', async () => {
+  let result
+  result = await run(
+    'state.things = new Map([["a", "b"], ["c", "d"], ["e", "f"]])',
+  )
+  expect(result.nextState).toBeTruthy()
+  result = await run('state.things.get("c")', {
+    state: result.nextState,
+  })
+  expect(result.output).toBe("'d'")
+})
+
 afterAll(() => {
   ScriptExecutor.destroy()
 })
