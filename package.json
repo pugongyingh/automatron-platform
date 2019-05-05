@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@line/bot-sdk": "^6.7.0",
+    "firebase-admin": "^7.3.0",
     "node-fetch": "^2.5.0",
     "serialize-javascript": "^1.7.0",
     "vm2": "^3.8.0",
