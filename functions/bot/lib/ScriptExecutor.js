@@ -29,7 +29,7 @@ async function execute(options) {
       resolve(out)
     })
   })
-  return v8.deserialize(Buffer.from(result, 'base64'))
+  return result
 }
 
 exports.execute = execute

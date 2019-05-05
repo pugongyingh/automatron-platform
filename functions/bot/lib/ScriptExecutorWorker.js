@@ -1,25 +1,26 @@
 const { VM } = require('vm2')
 const fetch = require('node-fetch')
 const v8 = require('v8')
+const util = require('util')
 
 async function execute(code) {
   const vm = new VM({
     timeout: 480,
     sandbox: {
-      fetch
-    }
+      fetch,
+    },
   })
   let result = vm.run(code)
   return result
 }
 
-module.exports = async function (options, callback) {
-  let err
-  let res
+module.exports = async function(options, callback) {
+  let result = {}
   try {
-    res = v8.serialize(await execute(options.code)).toString('base64')
+    const returned = await execute(options.code)
+    result.output = util.inspect(returned, { depth: 5 })
   } catch (error) {
-    err = error
+    result.error = error.stack
   }
-  callback(err, res)
+  callback(null, result)
 }
