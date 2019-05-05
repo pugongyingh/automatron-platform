@@ -1,15 +1,21 @@
 workflow "Test" {
   on = "push"
-  resolves = ["npm test"]
+  resolves = ["typecheck", "test"]
 }
 
-action "npm install" {
-  uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
+action "yarn install" {
+  uses = "Borales/actions-yarn@7f2a9167277e57a749fc97441aec0056d2b13948"
   args = "install"
 }
 
-action "npm test" {
-  uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
-  needs = ["npm install"]
+action "test" {
+  uses = "Borales/actions-yarn@7f2a9167277e57a749fc97441aec0056d2b13948"
   args = "test"
+  needs = ["yarn install"]
+}
+
+action "typecheck" {
+  uses = "Borales/actions-yarn@7f2a9167277e57a749fc97441aec0056d2b13948"
+  needs = ["yarn install"]
+  args = "typecheck"
 }
