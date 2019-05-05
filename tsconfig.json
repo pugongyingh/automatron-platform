@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2016",
+    "jsx": "preserve",
+    "checkJs": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "noImplicitAny": false,
+    "noEmit": true
+  },
+  "include": ["functions"],
+  "exclude": ["node_modules", "**/node_modules/*"]
+}

@@ -11,14 +11,16 @@
   "devDependencies": {
     "@types/jest": "^24.0.12",
     "@types/node": "^12.0.0",
-    "jest": "^24.7.1"
+    "jest": "^24.7.1",
+    "typescript": "^3.4.5"
   },
   "name": "automatron-platform",
   "description": "Bot",
   "version": "0.0.1",
   "main": "main.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "typecheck": "tsc"
   },
   "repository": {
     "type": "git",
