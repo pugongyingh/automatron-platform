@@ -1,7 +1,7 @@
 const ScriptExecutor = require('./ScriptExecutor')
 
-async function run(code) {
-  const options = { code }
+async function run(code, opts = {}) {
+  const options = { code, ...opts }
   const result = await ScriptExecutor.execute(options)
   return result
 }
@@ -28,17 +28,33 @@ it('should protect against too much memory', async () => {
 
 it('should protect against infinite loop', async () => {
   const result = await run('for(;;);')
-  await expect(result.error).toMatch(/Error: Script execution timed out/)
+  expect(result.error).toMatch(/Error: Script execution timed out/)
 })
 
 it('should protect against async infinite loop', async () => {
   const result = await run('(async()=>42)().then(()=>{for(;;);})')
-  await expect(result.error).toMatch(/TimeoutError/)
+  expect(result.error).toMatch(/TimeoutError/)
 })
 
 it('should display cyclic data structures', async () => {
   const result = await run('x={};x.x=x;x')
-  await expect(result.output).toBe('{ x: [Circular] }')
+  expect(result.output).toBe('{ x: [Circular] }')
+})
+
+it('should not return next state if it is same', async () => {
+  const result = await run('99')
+  expect(result.nextState).toBeUndefined()
+})
+
+it('should support stateful computation', async () => {
+  let result
+  result = await run('state.things = []')
+  expect(result.output).toBe('[]')
+  expect(result.nextState).toBeTruthy()
+  result = await run('state.things.push(42)', { state: result.nextState })
+  expect(result.nextState).toBeTruthy()
+  result = await run('JSON.stringify(state)', { state: result.nextState })
+  expect(result.output).toBe(`'{"things":[42]}'`)
 })
 
 afterAll(() => {

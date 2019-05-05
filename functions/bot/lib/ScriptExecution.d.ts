@@ -14,4 +14,6 @@ export interface ScriptExecutionResult {
   logs: string[]
   /** Error messages */
   error?: string
+  /** Next state */
+  nextState?: string
 }

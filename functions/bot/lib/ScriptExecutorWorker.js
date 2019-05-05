@@ -1,27 +1,41 @@
 const { VM } = require('vm2')
 const fetch = require('node-fetch')
-const v8 = require('v8')
+const serialize = require('serialize-javascript')
 const util = require('util')
 
-async function execute(code, executeOptions) {
-  const vm = new VM({
-    timeout: 480,
-    sandbox: {
-      fetch,
-      say: executeOptions.say,
-    },
-  })
-  let result = vm.run(code)
-  return result
-}
-
+/**
+ * @param {import('./ScriptExecution').ScriptExecutionInput} options
+ */
 module.exports = async function(options, callback) {
+  /** @type {import('./ScriptExecution').ScriptExecutionResult} */
   let result = { logs: [] }
   try {
-    const returned = await execute(options.code, {
+    const logError = (error, ...args) => console.error(...args, error)
+    const sandbox = {
+      fetch,
       say: (...args) => result.logs.push(util.format(...args)),
-    })
+      state: {},
+    }
+
+    const vm = new VM({ timeout: 480, sandbox })
+    const previousState = options.state || '{}'
+    try {
+      vm.run('state = (' + previousState + ')')
+    } catch (error) {
+      logError(error, 'Cannot restore state.')
+    }
+
+    let runResult = vm.run(options.code)
+    const returned = await runResult
     result.output = util.inspect(returned, { depth: 5 })
+    try {
+      const nextState = serialize(vm.run('state'))
+      if (previousState !== nextState) {
+        result.nextState = nextState
+      }
+    } catch (error) {
+      logError(error, 'Cannot serialize next state.')
+    }
   } catch (error) {
     result.error = String((error && error.stack) || error)
   }
