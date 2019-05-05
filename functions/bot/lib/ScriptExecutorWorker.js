@@ -18,6 +18,11 @@ module.exports = async function(options, callback) {
     }
 
     const vm = new VM({ timeout: 480, sandbox })
+
+    if (options.program) {
+      vm.run(options.program)
+    }
+
     const previousState = options.state || '{}'
     try {
       vm.run('state = (' + previousState + ')')

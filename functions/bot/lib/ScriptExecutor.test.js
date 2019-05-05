@@ -89,6 +89,14 @@ it('supports serializing maps', async () => {
   expect(result.output).toBe("'d'")
 })
 
+it('should support programs', async () => {
+  const result = await run('a()', {
+    program: 'function a() { return 42 }',
+  })
+  expect(result.error).toBeUndefined()
+  expect(result.output).toBe('42')
+})
+
 afterAll(() => {
   ScriptExecutor.destroy()
 })
