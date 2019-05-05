@@ -18,16 +18,28 @@ async function handleEvent(event) {
   const responses = []
   try {
     const result = await execute({ code: event.message.text })
+    for (const message of result.logs) {
+      responses.push({
+        type: 'text',
+        text: message,
+      })
+    }
     if (result.output) {
       responses.push({
         type: 'text',
-        text: result.output,
+        text: `↪️ ${result.output}`,
+      })
+    }
+    if (result.error) {
+      responses.push({
+        type: 'text',
+        text: `⚠️ ${result.error}`,
       })
     }
   } catch (e) {
     responses.push({
       type: 'text',
-      text: `Error: ${e}`,
+      text: `⚠️ ${e}`,
     })
   }
   if (!responses.length) {

@@ -23,12 +23,20 @@ const workers = workerFarm(
  * @param {string} options.code
  */
 async function execute(options) {
-  const result = await new Promise((resolve, reject) => {
-    workers(options, (err, out) => {
-      if (err) return reject(err)
-      resolve(out)
+  const result = {
+    logs: [],
+  }
+  try {
+    const returned = await new Promise((resolve, reject) => {
+      workers(options, (err, out) => {
+        if (err) return reject(err)
+        resolve(out)
+      })
     })
-  })
+    Object.assign(result, returned)
+  } catch (error) {
+    result.error = String((error && error.stack) || error)
+  }
   return result
 }
 

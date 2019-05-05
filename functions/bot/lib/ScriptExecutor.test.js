@@ -22,10 +22,8 @@ it('should support fetch', async () => {
 })
 
 it('should protect against too much memory', async () => {
-  const result = run('Array(10000000)')
-  await expect(result).rejects.toMatchObject({
-    name: 'ProcessTerminatedError',
-  })
+  const result = await run('Array(10000000)')
+  expect(result.error).toMatch(/ProcessTerminatedError/)
 })
 
 it('should protect against infinite loop', async () => {
@@ -34,10 +32,8 @@ it('should protect against infinite loop', async () => {
 })
 
 it('should protect against async infinite loop', async () => {
-  const result = run('(async()=>42)().then(()=>{for(;;);})')
-  await expect(result).rejects.toMatchObject({
-    name: 'TimeoutError',
-  })
+  const result = await run('(async()=>42)().then(()=>{for(;;);})')
+  await expect(result.error).toMatch(/TimeoutError/)
 })
 
 it('should display cyclic data structures', async () => {
