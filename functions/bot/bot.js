@@ -1,13 +1,22 @@
+const { fail } = require('assert')
 const line = require('@line/bot-sdk')
 const { execute } = require('./lib/ScriptExecutor')
 const config = {
-  channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
-  channelSecret: process.env.LINE_CHANNEL_SECRET,
+  channelAccessToken:
+    process.env.LINE_CHANNEL_ACCESS_TOKEN ||
+    fail('LINE_CHANNEL_ACCESS_TOKEN environment missing'),
+  channelSecret:
+    process.env.LINE_CHANNEL_SECRET ||
+    fail('LINE_CHANNEL_SECRET environment missing'),
 }
 
 const admin = require('firebase-admin')
 const serviceAccount = JSON.parse(
-  Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT, 'base64').toString(),
+  Buffer.from(
+    process.env.FIREBASE_SERVICE_ACCOUNT ||
+      fail('FIREBASE_SERVICE_ACCOUNT environment missing'),
+    'base64',
+  ).toString(),
 )
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),

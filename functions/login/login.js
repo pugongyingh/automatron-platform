@@ -1,7 +1,12 @@
+const { fail } = require('assert')
 const axios = require('axios')
 const admin = require('firebase-admin')
 const serviceAccount = JSON.parse(
-  Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT, 'base64').toString(),
+  Buffer.from(
+    process.env.FIREBASE_SERVICE_ACCOUNT ||
+      fail('FIREBASE_SERVICE_ACCOUNT environment missing'),
+    'base64',
+  ).toString(),
 )
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
