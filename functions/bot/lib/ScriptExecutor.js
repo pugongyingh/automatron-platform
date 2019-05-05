@@ -4,16 +4,19 @@ require('./ScriptExecutorWorker')
 
 const farmOptions = {
   workerOptions: {
-    execArgv: ['--max-old-space-size=32']
+    execArgv: ['--max-old-space-size=32'],
   },
   maxConcurrentWorkers: 1,
   maxConcurrentCallsPerWorker: 1,
   maxCallTime: 3000,
   maxRetries: 0,
-  autoStart: true
+  autoStart: true,
 }
 
-const workers = workerFarm(farmOptions, require.resolve('./ScriptExecutorWorker'))
+const workers = workerFarm(
+  farmOptions,
+  require.resolve('./ScriptExecutorWorker'),
+)
 
 /**
  * @param {object} options
@@ -38,10 +41,6 @@ exports.destroy = () => {
   try {
     workerFarm.end(workers)
   } catch (error) {
-    if (String(error) === 'TypeError: setTimeout(...).unref is not a function') {
-      // known error
-    } else {
-      console.error('Cannot end worker farm', error)
-    }
+    console.error('Cannot end worker farm', error)
   }
 }
