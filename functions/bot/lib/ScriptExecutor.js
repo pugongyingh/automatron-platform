@@ -19,8 +19,8 @@ const workers = workerFarm(
 )
 
 /**
- * @param {object} options
- * @param {string} options.code
+ * @param {import('./ScriptExecution').ScriptExecutionInput} options
+ * @return {Promise<import('./ScriptExecution').ScriptExecutionResult>}
  */
 async function execute(options) {
   const result = {

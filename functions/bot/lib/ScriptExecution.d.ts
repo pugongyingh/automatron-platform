@@ -1,4 +1,8 @@
 export interface ScriptExecutionInput {
+  /** User-configured bot module */
+  program?: string
+  /** State object */
+  state?: string
   /** User-inputted code */
   code: string
 }
