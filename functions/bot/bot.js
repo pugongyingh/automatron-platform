@@ -39,7 +39,7 @@ async function handleEvent(event) {
       .child('data')
     const programRef = admin
       .database()
-      .ref('ref')
+      .ref('program')
       .child(userId)
       .child('source')
     const statePromise = stateRef.once('value')
