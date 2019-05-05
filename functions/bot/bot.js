@@ -7,7 +7,7 @@ const config = {
 
 const admin = require('firebase-admin')
 const serviceAccount = JSON.parse(
-  Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT, 'base64'),
+  Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT, 'base64').toString(),
 )
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -80,7 +80,7 @@ async function handleEvent(event) {
       text: `(No output)`,
     })
   }
-  await client.replyMessage(event.replyToken, responses)
+  await client.replyMessage(event.replyToken, /** @type {any[]} */ (responses))
   return 'All good'
 }
 
