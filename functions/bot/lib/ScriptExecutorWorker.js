@@ -20,7 +20,7 @@ module.exports = async function(options, callback) {
     const returned = await execute(options.code)
     result.output = util.inspect(returned, { depth: 5 })
   } catch (error) {
-    result.error = error.stack
+    result.error = String((error && error.stack) || error)
   }
   callback(null, result)
 }

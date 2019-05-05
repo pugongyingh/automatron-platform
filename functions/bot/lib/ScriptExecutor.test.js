@@ -28,6 +28,23 @@ it('should protect against too much memory', async () => {
   })
 })
 
+it('should protect against infinite loop', async () => {
+  const result = await run('for(;;);')
+  await expect(result.error).toMatch(/Error: Script execution timed out/)
+})
+
+it('should protect against async infinite loop', async () => {
+  const result = run('(async()=>42)().then(()=>{for(;;);})')
+  await expect(result).rejects.toMatchObject({
+    name: 'TimeoutError',
+  })
+})
+
+it('should display cyclic data structures', async () => {
+  const result = await run('x={};x.x=x;x')
+  await expect(result.output).toBe('{ x: [Circular] }')
+})
+
 afterAll(() => {
   ScriptExecutor.destroy()
 })

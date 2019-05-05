@@ -8,7 +8,7 @@ const farmOptions = {
   },
   maxConcurrentWorkers: 1,
   maxConcurrentCallsPerWorker: 1,
-  maxCallTime: 3000,
+  maxCallTime: process.env.NODE_ENV === 'test' ? 800 : 3000,
   maxRetries: 0,
   autoStart: true,
 }
