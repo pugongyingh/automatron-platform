@@ -16,8 +16,7 @@ export default function Authorization(props) {
           throw new Error(
             'No user returned from FirebaseAuth.signInWithCustomToken',
           )
-        const tokenResult = await firebaseUser.getIdTokenResult()
-        setStatus('Welcome! ' + tokenResult.claims.displayName)
+        setStatus('Welcome! ' + firebaseUser.displayName)
       } catch (error) {
         setStatus(`Failed to authorize: ${error}`)
       }

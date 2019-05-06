@@ -1,11 +1,16 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react'
+import Layout from '../components/Layout'
 
 const Authorization = lazy(() => import('../firebase/Authorization'))
 
 /** @type {string | undefined} */
 let savedToken
 
-export default () => <AuthorizationPage />
+export default () => (
+  <Layout>
+    <AuthorizationPage />
+  </Layout>
+)
 
 function Loading() {
   return <div>Loading...</div>
