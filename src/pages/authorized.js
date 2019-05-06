@@ -37,6 +37,9 @@ function AuthorizationPage() {
   if (match) {
     const token = match[1]
     savedToken = token
+    setTimeout(() => {
+      window.location.hash = '#_=_'
+    })
     return (
       <Suspense fallback={<Loading />}>
         <Authorization token={token} />
