@@ -23,7 +23,8 @@
   "main": "main.js",
   "scripts": {
     "test": "jest",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "build": "gatsby build"
   },
   "repository": {
     "type": "git",
