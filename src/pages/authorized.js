@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import { FirebaseAuth } from '../firebase'
-import { func } from 'prop-types'
+import React, { useState, useEffect, Suspense, lazy } from 'react'
+
+const Authorization = lazy(() => import('../firebase/Authorization'))
 
 /** @type {string | undefined} */
 let savedToken
 
 export default () => <AuthorizationPage />
+
+function Loading() {
+  return <div>Loading...</div>
+}
 
 function AuthorizationPage() {
   const [loaded, setLoaded] = useState(false)
@@ -13,7 +17,14 @@ function AuthorizationPage() {
     setLoaded(true)
   }, [])
   if (!loaded) {
-    return <div>Loading...</div>
+    return <Loading />
+  }
+  if (savedToken) {
+    return (
+      <Suspense fallback={<Loading />}>
+        <Authorization token={savedToken} />
+      </Suspense>
+    )
   }
   const match =
     typeof window !== 'undefined' &&
@@ -21,34 +32,12 @@ function AuthorizationPage() {
   if (match) {
     const token = match[1]
     savedToken = token
-    return <Authorization token={token} />
+    return (
+      <Suspense fallback={<Loading />}>
+        <Authorization token={token} />
+      </Suspense>
+    )
   } else {
     return <div>Error: No token received!</div>
   }
-}
-
-/**
- * @param {object} props
- * @param {string} props.token
- */
-function Authorization(props) {
-  const [status, setStatus] = useState('Authorizing...')
-  useEffect(() => {
-    const run = async () => {
-      try {
-        const result = await FirebaseAuth.signInWithCustomToken(props.token)
-        const firebaseUser = result.user
-        if (!firebaseUser)
-          throw new Error(
-            'No user returned from FirebaseAuth.signInWithCustomToken',
-          )
-        const tokenResult = await firebaseUser.getIdTokenResult()
-        setStatus('Welcome! ' + tokenResult.claims.displayName)
-      } catch (error) {
-        setStatus(`Failed to authorize: ${error}`)
-      }
-    }
-    run()
-  }, [])
-  return <div>{status}</div>
 }
