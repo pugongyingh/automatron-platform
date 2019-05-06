@@ -38,7 +38,22 @@ exports.handler = async function(event, context) {
         Authorization: `Bearer ${accessToken}`,
       },
     })).data
-    const token = await admin.auth().createCustomToken(profile.userId, {
+    const uid = profile.userId
+    try {
+      await admin.auth().createUser({
+        uid: uid,
+        displayName: profile.displayName,
+        photoURL: profile.pictureUrl,
+      })
+    } catch (e) {
+      if (e.code === 'auth/uid-already-exists') {
+        await admin.auth().updateUser(uid, {
+          displayName: profile.displayName,
+          photoURL: profile.pictureUrl,
+        })
+      }
+    }
+    const token = await admin.auth().createCustomToken(uid, {
       pictureUrl: profile.pictureUrl,
       displayName: profile.displayName,
     })
@@ -47,7 +62,7 @@ exports.handler = async function(event, context) {
       statusCode: 302,
       body: 'Login successful!',
       headers: {
-        location: `https://automatron.netlify.com/editor#login_token=${token}`,
+        location: `https://automatron.netlify.com/authorized#login_token=${token}`,
       },
     }
   } catch (err) {
