@@ -8,8 +8,9 @@
     "skipLibCheck": true,
     "allowJs": true,
     "noImplicitAny": false,
-    "noEmit": true
+    "noEmit": true,
+    "esModuleInterop": true
   },
-  "include": ["functions"],
+  "include": ["functions", "src"],
   "exclude": ["node_modules", "**/node_modules/*"]
 }
