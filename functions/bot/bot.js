@@ -63,7 +63,10 @@ async function handleEvent(event) {
         text: message,
       })
     }
-    if (result.output) {
+    if (
+      result.output &&
+      !(result.logs.length > 0 && result.output === 'undefined')
+    ) {
       responses.push({
         type: 'text',
         text: `↪️ ${result.output}`,
