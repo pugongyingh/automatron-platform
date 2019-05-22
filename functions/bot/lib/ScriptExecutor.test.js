@@ -111,6 +111,11 @@ it('should support custom bot function', async () => {
   expect(result.output).toBe("'uwu nice'")
 })
 
+it('should display input position', async () => {
+  const result = await run('event + wow')
+  expect(result.error).toMatch(/input\.js:1:9/)
+})
+
 afterAll(() => {
   ScriptExecutor.destroy()
 })

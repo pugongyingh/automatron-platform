@@ -48,7 +48,7 @@ module.exports = async function(options, callback) {
             say(`Sorry, I don’t handle messages of type ${event.message.type}`)
             return
           }
-          return eval(event.message.text)
+          return eval(event.message.text + '\n//# sourceURL=/bot/input.js')
         }
       },
       ')(',
