@@ -104,6 +104,14 @@ it('should support programs', async () => {
   expect(result.output).toBe('42')
 })
 
+it('should support custom bot function', async () => {
+  const result = await run('nice', {
+    program: 'function bot(input) { return "uwu " + input }',
+  })
+  expect(result.error).toBeUndefined()
+  expect(result.output).toBe("'uwu nice'")
+})
+
 afterAll(() => {
   ScriptExecutor.destroy()
 })

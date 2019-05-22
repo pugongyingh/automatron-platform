@@ -34,7 +34,13 @@ module.exports = async function(options, callback) {
     const runCode = [
       '(',
       function botHandler(input, event) {
-        return eval(input)
+        // @ts-ignore
+        if (typeof bot !== 'undefined') {
+          // @ts-ignore
+          return bot(input, event)
+        } else {
+          return eval(input)
+        }
       },
       ')(',
       JSON.stringify(options.input),
