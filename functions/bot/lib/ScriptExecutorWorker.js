@@ -13,7 +13,9 @@ module.exports = async function(options, callback) {
     const logError = (error, ...args) => console.error(...args, error)
     const sandbox = {
       fetch,
-      say: (format, ...args) => result.logs.push(util.format(format, ...args)),
+      say: (format, ...args) => {
+        result.logs.push(util.format(format, ...args))
+      },
       state: {},
     }
 
