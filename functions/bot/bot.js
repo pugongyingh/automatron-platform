@@ -69,7 +69,7 @@ async function handleEvent(event) {
     ) {
       responses.push({
         type: 'text',
-        text: `↪️ ${result.output}`,
+        text: `↪️${result.output.includes('\n') ? '\n' : ' '}${result.output}`,
       })
     }
     if (result.error) {
