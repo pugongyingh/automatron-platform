@@ -1,4 +1,4 @@
-const { VM } = require('vm2')
+const { VM, VMScript } = require('vm2')
 const fetch = require('node-fetch')
 const serialize = require('serialize-javascript')
 const util = require('util')
@@ -20,7 +20,8 @@ module.exports = async function(options, callback) {
     const vm = new VM({ timeout: 480, sandbox })
 
     if (options.program) {
-      vm.run(options.program)
+      const programScript = new VMScript(options.program, '/bot/program.js')
+      vm.run(programScript)
     }
 
     const previousState = options.state || '{}'
@@ -30,7 +31,8 @@ module.exports = async function(options, callback) {
       logError(error, 'Cannot restore state.')
     }
 
-    let runResult = vm.run(options.code)
+    const inputScript = new VMScript(options.input, '/bot/input.js')
+    let runResult = vm.run(inputScript)
     const returned = await runResult
     result.output = util.inspect(returned, { depth: 5 })
     try {

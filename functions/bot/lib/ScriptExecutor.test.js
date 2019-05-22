@@ -1,7 +1,14 @@
 const ScriptExecutor = require('./ScriptExecutor')
 
-async function run(code, opts = {}) {
-  const options = { code, ...opts }
+async function run(input, opts = {}) {
+  const options = {
+    input,
+    event: JSON.stringify({
+      type: 'message',
+      message: { type: 'text', text: input },
+    }),
+    ...opts,
+  }
   const result = await ScriptExecutor.execute(options)
   return result
 }

@@ -57,12 +57,12 @@ exports.handler = async function(event, context) {
       pictureUrl: profile.pictureUrl,
       displayName: profile.displayName,
     })
-    console.log('Hello!', profile, state)
+    const to = state === 'to=share' ? 'share' : 'edit'
     return {
       statusCode: 302,
       body: 'Login successful!',
       headers: {
-        location: `https://automatron.netlify.com/authorized#login_token=${token}`,
+        location: `https://automatron.netlify.com/authorized#login_token=${token}&to=${to}`,
       },
     }
   } catch (err) {

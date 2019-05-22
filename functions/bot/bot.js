@@ -55,7 +55,12 @@ async function handleEvent(event) {
     const programPromise = programRef.once('value')
     const state = (await statePromise).val() || undefined
     const program = (await programPromise).val() || undefined
-    const result = await execute({ code: event.message.text, state, program })
+    const result = await execute({
+      input: event.message.text,
+      event: JSON.stringify(event),
+      state,
+      program,
+    })
     for (const message of result.logs) {
       responses.push({
         type: 'text',

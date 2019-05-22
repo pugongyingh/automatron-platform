@@ -3,8 +3,10 @@ export interface ScriptExecutionInput {
   program?: string
   /** State object */
   state?: string
-  /** User-inputted code */
-  code: string
+  /** User input - usually this is JavaScript code */
+  input: string
+  /** Event object, JSON-stringified */
+  event: string
 }
 
 export interface ScriptExecutionResult {
