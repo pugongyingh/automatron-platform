@@ -2,7 +2,6 @@ const ScriptExecutor = require('./ScriptExecutor')
 
 async function run(input, opts = {}) {
   const options = {
-    input,
     event: JSON.stringify({
       type: 'message',
       message: { type: 'text', text: input },
@@ -106,7 +105,7 @@ it('should support programs', async () => {
 
 it('should support custom bot function', async () => {
   const result = await run('nice', {
-    program: 'function bot(input) { return "uwu " + input }',
+    program: 'function bot(event) { return "uwu " + event.message.text }',
   })
   expect(result.error).toBeUndefined()
   expect(result.output).toBe("'uwu nice'")

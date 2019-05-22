@@ -33,18 +33,25 @@ module.exports = async function(options, callback) {
 
     const runCode = [
       '(',
-      function botHandler(input, event) {
+      function botHandler(event) {
         // @ts-ignore
         if (typeof bot !== 'undefined') {
           // @ts-ignore
-          return bot(input, event)
+          return bot(event)
         } else {
-          return eval(input)
+          return defaultBotHandler()
+        }
+
+        function defaultBotHandler() {
+          if (event.message.type !== 'text') {
+            // @ts-ignore
+            say(`Sorry, I don’t handle messages of type ${event.message.type}`)
+            return
+          }
+          return eval(event.message.text)
         }
       },
       ')(',
-      JSON.stringify(options.input),
-      ',',
       options.event,
       ')',
     ].join('')

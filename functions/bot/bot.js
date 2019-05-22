@@ -29,9 +29,6 @@ async function handleEvent(event) {
   if (event.type !== 'message') {
     return `Sorry, I don’t handle events of type ${event.type}`
   }
-  if (event.message.type !== 'text') {
-    return `Sorry, I don’t handle messages of type ${event.message.type}`
-  }
   if (event.source.type !== 'user') {
     return `Sorry, I only handle direct messages for now`
   }
@@ -56,7 +53,6 @@ async function handleEvent(event) {
     const state = (await statePromise).val() || undefined
     const program = (await programPromise).val() || undefined
     const result = await execute({
-      input: event.message.text,
       event: JSON.stringify(event),
       state,
       program,

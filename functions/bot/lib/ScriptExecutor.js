@@ -1,5 +1,4 @@
 const workerFarm = require('worker-farm')
-const v8 = require('v8')
 require('./ScriptExecutorWorker')
 
 const farmOptions = {
