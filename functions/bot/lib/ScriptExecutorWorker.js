@@ -68,7 +68,18 @@ module.exports = async function(options, callback) {
       logError(error, 'Cannot serialize next state.')
     }
   } catch (error) {
-    result.error = String((error && error.stack) || error)
+    result.error = String((error && filterStack(error.stack)) || error)
   }
   callback(null, result)
+}
+
+/**
+ * @param {string} stack
+ * @return {string}
+ */
+function filterStack(stack) {
+  return String(stack).replace(
+    /\n[ ]{4}at (?:.*Script\.runInContext|process\._tickCallback|.*node_modules\/(?:vm2|worker-farm)\/|.*ScriptExecutorWorker\.js|emitTwo \(events\.js).*/g,
+    '',
+  )
 }

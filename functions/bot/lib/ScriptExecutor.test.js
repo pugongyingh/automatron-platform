@@ -111,9 +111,16 @@ it('should support custom bot function', async () => {
   expect(result.output).toBe("'uwu nice'")
 })
 
-it('should display input position', async () => {
+it('should display input position in stack traces', async () => {
   const result = await run('event + wow')
   expect(result.error).toMatch(/input\.js:1:9/)
+})
+
+it('should filter out unnecessary lines from stack traces', async () => {
+  const result = await run('event + wow')
+  expect(result.error).not.toMatch(/runInContext/)
+  expect(result.error).not.toMatch(/vm2/)
+  expect(result.error).not.toMatch(/worker-farm/)
 })
 
 afterAll(() => {

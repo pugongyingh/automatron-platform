@@ -34,20 +34,9 @@ async function execute(options) {
     })
     Object.assign(result, returned)
   } catch (error) {
-    result.error = String((error && filterStack(error.stack)) || error)
+    result.error = String((error && error.stack) || error)
   }
   return result
-}
-
-/**
- * @param {string} stack
- * @return {string}
- */
-function filterStack(stack) {
-  return String(stack).replace(
-    /\n[ ]{4}at (?:ContextifyScript\.Script\.runInContext|process\._tickCallback|.*node_modules\/(?:vm2|worker-farm)\/|.*ScriptExecutorWorker\.js|emitTwo \(events\.js).*/g,
-    '',
-  )
 }
 
 exports.execute = execute
