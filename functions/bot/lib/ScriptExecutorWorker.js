@@ -31,7 +31,18 @@ module.exports = async function(options, callback) {
       logError(error, 'Cannot restore state.')
     }
 
-    const inputScript = new VMScript(options.input, '/bot/input.js')
+    const runCode = [
+      '(',
+      function botHandler(input, event) {
+        return eval(input)
+      },
+      ')(',
+      JSON.stringify(options.input),
+      ',',
+      options.event,
+      ')',
+    ].join('')
+    const inputScript = new VMScript(runCode, '/bot/run.js')
     let runResult = vm.run(inputScript)
     const returned = await runResult
     result.output = util.inspect(returned, { depth: 5 })
