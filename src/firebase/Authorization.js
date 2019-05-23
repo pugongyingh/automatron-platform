@@ -21,9 +21,9 @@ export default function Authorization(props) {
         setStatus('Welcome! ' + firebaseUser.displayName)
         setTimeout(() => {
           if (props.to === 'share') {
-            navigate('/sharing')
+            navigate('/sharing', { replace: true })
           } else {
-            navigate('/editor')
+            navigate('/editor', { replace: true })
           }
         })
       } catch (error) {
