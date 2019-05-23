@@ -8,10 +8,15 @@ const serviceAccount = JSON.parse(
     'base64',
   ).toString(),
 )
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://automatron-platform.firebaseio.com',
-})
+
+const adminState = /** @type {{ __automatron_initialized?: boolean }} */ (admin)
+if (!adminState.__automatron_initialized) {
+  adminState.__automatron_initialized = true
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: 'https://automatron-platform.firebaseio.com',
+  })
+}
 
 exports.handler = async function(event, context) {
   try {
@@ -23,12 +28,17 @@ exports.handler = async function(event, context) {
     }
     const code = String(event.queryStringParameters.code)
     const state = String(event.queryStringParameters.state)
+    const base = /localhost/.test(
+      event.headers['Host'] || event.headers['host'],
+    )
+      ? 'http://localhost:8888'
+      : 'https://automatron.netlify.com'
     const accessToken = (await axios.default.post(
       'https://api.line.me/oauth2/v2.1/token',
       require('querystring').stringify({
         grant_type: 'authorization_code',
         code,
-        redirect_uri: 'https://automatron.netlify.com/.netlify/functions/login',
+        redirect_uri: `${base}/.netlify/functions/login`,
         client_id: process.env.LINE_LOGIN_CLIENT_ID,
         client_secret: process.env.LINE_LOGIN_CLIENT_SECRET,
       }),
@@ -62,7 +72,7 @@ exports.handler = async function(event, context) {
       statusCode: 302,
       body: 'Login successful!',
       headers: {
-        location: `https://automatron.netlify.com/authorized#login_token=${token}&to=${to}`,
+        location: `/authorized#login_token=${token}&to=${to}`,
       },
     }
   } catch (err) {

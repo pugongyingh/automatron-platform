@@ -1,3 +1,5 @@
 /manual https://www.notion.so/Manual-87702081b6ff44c68277ee1d5623e5c8 302
 /login/edit https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1570572112&redirect_uri=https://automatron.netlify.com/.netlify/functions/login&state=to=edit&scope=openid%20profile&bot_prompt=aggressive
 /login/share https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1570572112&redirect_uri=https://automatron.netlify.com/.netlify/functions/login&state=to=share&scope=openid%20profile&bot_prompt=aggressive
+/login-localhost/edit https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1570572112&redirect_uri=http://localhost:8888/.netlify/functions/login&state=to=edit&scope=openid%20profile&bot_prompt=aggressive
+/login-localhost/share https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1570572112&redirect_uri=http://localhost:8888/.netlify/functions/login&state=to=share&scope=openid%20profile&bot_prompt=aggressive
