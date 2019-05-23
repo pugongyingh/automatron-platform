@@ -3,10 +3,10 @@ import Layout from '../components/Layout'
 
 const Authorization = lazy(() => import('../firebase/Authorization'))
 
-/** @typedef {{ loginToken: string; to: string }} LoginParams */
+/** @typedef {{ loginToken: string; to: string }} SignInParams */
 
-/** @type {LoginParams | null} */
-let savedLoginParams = null
+/** @type {SignInParams | null} */
+let savedSignInParams = null
 
 export default () => (
   <Layout>
@@ -26,11 +26,11 @@ function AuthorizationPage() {
   if (!loaded) {
     return <Loading />
   }
-  const loginParams = getLoginParams()
-  if (loginParams) {
+  const signInParams = getSignInParams()
+  if (signInParams) {
     return (
       <Suspense fallback={<Loading />}>
-        <Authorization token={loginParams.loginToken} />
+        <Authorization token={signInParams.loginToken} />
       </Suspense>
     )
   } else {
@@ -38,20 +38,20 @@ function AuthorizationPage() {
   }
 }
 
-function getLoginParams() {
-  if (savedLoginParams) {
-    return savedLoginParams
+function getSignInParams() {
+  if (savedSignInParams) {
+    return savedSignInParams
   }
   const match =
     typeof window !== 'undefined' &&
     window.location.hash.match(/login_token=([^&#]+)&to=(\w+)/)
   if (!match) return null
-  savedLoginParams = {
+  savedSignInParams = {
     loginToken: match[1],
     to: match[2],
   }
   setTimeout(() => {
     window.location.hash = '#_=_'
   })
-  return savedLoginParams
+  return savedSignInParams
 }
