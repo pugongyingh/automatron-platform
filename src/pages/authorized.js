@@ -30,7 +30,7 @@ function AuthorizationPage() {
   if (signInParams) {
     return (
       <Suspense fallback={<Loading />}>
-        <Authorization token={signInParams.loginToken} />
+        <Authorization token={signInParams.loginToken} to={signInParams.to} />
       </Suspense>
     )
   } else {

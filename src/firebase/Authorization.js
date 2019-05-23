@@ -4,6 +4,7 @@ import { FirebaseAuth } from './firebase'
 /**
  * @param {object} props
  * @param {string} props.token
+ * @param {string} props.to
  */
 export default function Authorization(props) {
   const [status, setStatus] = useState('Authorizing...')
