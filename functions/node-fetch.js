@@ -223,7 +223,7 @@ function urlEcode(str) {
 	return(fff);
 	}
  let kkkk ="";
-function fetchh(str) {
+async function fetchh(str) {
 	
    try {
      const response = await fetch(API_ENDPOINT, {
@@ -235,7 +235,7 @@ function fetchh(str) {
        // NOT res.status >= 200 && res.status < 300
        return { statusCode: response.status, body: response.statusText };
      }
-     const dataa =  response.arrayBuffer();
+     const dataa = await response.arrayBuffer();
      var html =iconv.decode(Buffer.from(dataa), "gb2312");
      const $resultsPage = cheerio.load(html, { decodeEntities: false });
      //let qqqqq = $resultsPage.html();
