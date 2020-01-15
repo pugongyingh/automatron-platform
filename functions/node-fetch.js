@@ -293,7 +293,8 @@ mmm=88;
     });
      if (!response.ok) {
        // NOT res.status >= 200 && res.status < 300
-       return { statusCode: response.status, body: response.statusText };
+      // return { statusCode: response.status, body: response.statusText };
+	     kkkk="e8";
      }
      const dataa = await response.arrayBuffer();
      var html =iconv.decode(Buffer.from(dataa), "gb2312");
