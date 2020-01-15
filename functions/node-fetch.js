@@ -332,7 +332,7 @@ mmm=88;
                              if (mmm > 57 || mmm==0.13  || mmm==0.17 || mmm==0.19) 
                              {
 	
-	fetchh(uuu);
+	await fetchh(uuu);
 
                              }
                                       else {
