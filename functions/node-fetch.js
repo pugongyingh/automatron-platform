@@ -14,11 +14,21 @@ exports.handler = async function(event, context) {
        // NOT res.status >= 200 && res.status < 300
        return { statusCode: response.status, body: response.statusText };
      }
-     const data = await response.text();
+   //  const data = await response.text();
+     const dataa = await response.arrayBuffer();
+var html = iconv.decode(dataa, 'gb2312'); //return unicode string from GBK encoded bytes
 
+	const $resultsPage = cheerio.load(html, { decodeEntities: false });
+
+	 let   qqqqq = cheerio.load($resultsPage.html());
+	      
+      
+      
+      
+      
      return {
        statusCode: 200,
-       body: data 
+       body: qqqqq 
      };
    } catch (err) {
      console.log(err); // output to netlify function log
