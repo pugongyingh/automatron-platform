@@ -14,8 +14,8 @@ exports.handler = async function(event, context) {
        // NOT res.status >= 200 && res.status < 300
        return { statusCode: response.status, body: response.statusText };
      }
-   //  const data = await response.text();
-     const dataa = await response.arrayBuffer();
+     const dataa = await response.text();
+   //  const dataa = await response.arrayBuffer();
 var html = iconv.decode(dataa, 'gb2312'); //return unicode string from GBK encoded bytes
 
 	const $resultsPage = cheerio.load(html, { decodeEntities: false });
