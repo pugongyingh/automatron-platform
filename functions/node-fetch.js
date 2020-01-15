@@ -289,6 +289,7 @@ mmm=88;
      const response = await fetch(API_ENDPOINT, {
         method: "POST",
         body: uuu,
+	responseType: "arraybuffer",
         headers: {"Content-Type": "application/x-www-form-urlencoded"}
     });
      if (!response.ok) {
