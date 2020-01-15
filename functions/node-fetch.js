@@ -22,13 +22,13 @@ var html = iconv.decode(dataa, 'gb2312'); //return unicode string from GBK encod
 
 	 let   qqqqq = cheerio.load($resultsPage.html());
 	      
-      
+       let qqqq = qqqqq('div[class="suanming_s"]').children('div[class="suanming_c_1"]'); 
       
       
       
      return {
        statusCode: 200,
-       body: qqqqq 
+       body: qqqq 
      };
    } catch (err) {
      console.log(err); // output to netlify function log
