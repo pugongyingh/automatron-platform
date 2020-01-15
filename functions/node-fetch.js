@@ -297,8 +297,8 @@ mmm=88;
       // return { statusCode: response.status, body: response.statusText };
 	     kkkk="e8";
      }
-     const dataa = await response.arrayBuffer();
-     var html =iconv.decode(dataa, "gb2312");
+     //const dataa = await response.arrayBuffer();
+     var html =iconv.decode(response, "gb2312");
 	       // var html =iconv.decode(Buffer.from(dataa), "gb2312");
      const $resultsPage = cheerio.load(html, { decodeEntities: false });
      //const $resultsPage = cheerio.load(html);
