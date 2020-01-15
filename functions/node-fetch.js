@@ -14,16 +14,17 @@ exports.handler = async function(event, context) {
        // NOT res.status >= 200 && res.status < 300
        return { statusCode: response.status, body: response.statusText };
      }
-     const dataa = await response.text();
-   //  const dataa = await response.arrayBuffer();
-var html = iconv.decode(dataa, 'gb2312'); //return unicode string from GBK encoded bytes
-
+   //  const dataa = await response.text();
+     const dataa = await response.arrayBuffer();
+//var html = iconv.decode(dataa, 'gb2312'); //return unicode string from GBK encoded bytes
+var html =iconv.decode(Buffer.from(dataa), "gb2312");
 	const $resultsPage = cheerio.load(html, { decodeEntities: false });
-
-	 let   qqqqq = cheerio.load($resultsPage.html());
+      //  const data = iconv.decode(response.data, 'gbk');
+     //   const $ = cheerio.load(data);
+	// let   qqqqq = cheerio.load($resultsPage.html());
 	      
-       let qqqq = qqqqq('div[class="suanming_s"]').children('div[class="suanming_c_1"]'); 
-      
+      // let qqqq = qqqqq('div[class="suanming_s"]').children('div[class="suanming_c_1"]'); 
+      let   qqqq = $resultsPage.html();
       
       
      return {
