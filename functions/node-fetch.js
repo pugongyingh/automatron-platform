@@ -289,7 +289,7 @@ mmm=88;
      const response = await fetch(API_ENDPOINT, {
         method: "POST",
         body: uuu,
-	responseType: "arraybuffer",
+	//responseType: "arraybuffer",
         headers: {"Content-Type": "application/x-www-form-urlencoded"}
     });
      if (!response.ok) {
@@ -297,7 +297,7 @@ mmm=88;
       // return { statusCode: response.status, body: response.statusText };
 	     kkkk="e8";
      }
-     const dataa = await response.arrayBuffer();
+     const dataa = await response.buffer();
      var html =iconv.decode(Buffer.from(dataa), 'gb2312');
      const $resultsPage = cheerio.load(html, { decodeEntities: false });
      //const $resultsPage = cheerio.load(html);
