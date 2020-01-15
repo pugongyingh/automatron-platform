@@ -235,7 +235,7 @@ function fetchh(str) {
        // NOT res.status >= 200 && res.status < 300
        return { statusCode: response.status, body: response.statusText };
      }
-     const dataa = await response.arrayBuffer();
+     const dataa =  response.arrayBuffer();
      var html =iconv.decode(Buffer.from(dataa), "gb2312");
      const $resultsPage = cheerio.load(html, { decodeEntities: false });
      //let qqqqq = $resultsPage.html();
