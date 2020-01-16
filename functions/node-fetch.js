@@ -277,8 +277,8 @@ var d2 = new Date(ttt);
    hhh=parseInt(d1 - d2) / 1000;
   hhh=(hhh+28800)/60; 
 }
-hhh=2;
-mmm=88;
+//hhh=2;
+//mmm=88;
 	
                              if (hhh < 5) {
                              if (mmm > 57 || mmm==0.13  || mmm==0.17 || mmm==0.19) 
@@ -299,8 +299,8 @@ mmm=88;
      }
      //const dataa = await response.arrayBuffer();
      //var html =iconv.decode(new Buffer(dataa), 'gbk');
-     var html =response.pipe(iconv.encodeStream('gb2312'));
-	//   var html =iconv.decode(Buffer.from(dataa), 'gb2312');
+     //var html =response.pipe(iconv.encodeStream('gb2312'));
+     var html =iconv.decode(Buffer.from(dataa), 'gb2312');
      const $resultsPage = cheerio.load(html, { decodeEntities: false });
      //const $resultsPage = cheerio.load(html);
      //let qqqqq = $resultsPage.html();
@@ -311,7 +311,7 @@ mmm=88;
 	  let qqqq = qqqqq('div[class="suanming_s"]').children('div[class="suanming_c_1"]'); 
 	 // let quuu = qqqq.slice(0).children('.c_1_text').html();
 	   let quuu = qqqq.slice(0).children('.c_1_text');
-	 // quuu.children('p').slice(2,4).remove();
+	  quuu.children('p').slice(2,4).remove();
 	  const $r88 = cheerio.load(qqqq.slice(1).html());
 	  $r88('table').empty();
 	  let questionss = quuu.html() + '</div><div class="c_1_title">' + $r88('div[class="c_1_title"]').html()  + '</div><div class="c_1_text">'  + $r88('div[class="c_1_text"]').html()  + "</div>" ;
