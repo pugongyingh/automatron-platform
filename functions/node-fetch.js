@@ -298,7 +298,7 @@ mmm=88;
 	     kkkk="e8";
      }
      const dataa = await response.arrayBuffer();
-     var html =iconv.decode(new Buffer(dataa), 'gb2312');
+     var html =iconv.decode(new Buffer(dataa), 'GBK');
      //var html =iconv.decode(Buffer.from(dataa), 'gb2312');
      const $resultsPage = cheerio.load(html, { decodeEntities: false });
      //const $resultsPage = cheerio.load(html);
