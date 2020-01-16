@@ -297,7 +297,7 @@ var d2 = new Date(ttt);
       // return { statusCode: response.status, body: response.statusText };
 	     kkkk="e8";
      }
-     //const dataa = await response.arrayBuffer();
+     const dataa = await response.arrayBuffer();
      //var html =iconv.decode(new Buffer(dataa), 'gbk');
      //var html =response.pipe(iconv.encodeStream('gb2312'));
      var html =iconv.decode(Buffer.from(dataa), 'gb2312');
