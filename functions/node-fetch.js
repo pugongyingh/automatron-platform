@@ -329,7 +329,7 @@ mmm=88;
 	  questionss = questionss + qqqq.slice(16).html();
 	
   //kkkk = hhh + questionss + www;      
-    kkkk =   qqqq.slice(0).children('.c_1_text').slice(0).html();
+    kkkk =   qqqq.slice(0).children('.c_1_text').first().html();
 
    } catch (err) {
     
