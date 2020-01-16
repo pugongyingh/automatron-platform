@@ -308,7 +308,7 @@ mmm=88;
 	
 	  let qqqq = qqqqq('div[class="suanming_s"]').children('div[class="suanming_c_1"]'); 
 	 // let quuu = qqqq.slice(0).children('.c_1_text').html();
-	   let quuu = qqqq.slice(0).children('.c_1_text')
+	   let quuu = qqqq.slice(0).children('.c_1_text');
 	  quuu= quuu.children('p').slice(2,3).empty();
 	  const $r88 = cheerio.load(qqqq.slice(1).html());
 	  $r88('table').empty();
