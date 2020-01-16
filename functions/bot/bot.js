@@ -284,7 +284,7 @@ var d2 = new Date(ttt);
 		
  
 	   
-		request.post({
+		 await request.post({
 			headers: {
 				'content-type': 'application/x-www-form-urlencoded'
 			},
@@ -300,7 +300,7 @@ var d2 = new Date(ttt);
 	.pipe(iconv.encodeStream('utf-8'))
 	.collect(function(err, body){
 		kkkk = body.toString();
-
+		
 		
 	})
 	   
