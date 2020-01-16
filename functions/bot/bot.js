@@ -297,12 +297,12 @@ var d2 = new Date(ttt);
 			 kkkk="77788";
 		}
 	})
-	.pipe(iconv.decodeStream("GBK"))
+	.pipe(iconv.decodeStream("gb2312"))
 	//.pipe(iconv.encodeStream('utf-8'))
 	.collect(function(err, body){
-			 const $resultsPage = cheerio.load(body, { decodeEntities: false });
-		//kkkk = body.toString();
-		 kkkk=$resultsPage.html();
+			// const $resultsPage = cheerio.load(body);
+		kkkk = body.toString();
+		// kkkk=$resultsPage.html();
 		
 	})
 	   
