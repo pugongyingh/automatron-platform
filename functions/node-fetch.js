@@ -330,8 +330,8 @@ mmm=88;
 	  questionss = questionss + qqqq.slice(15).html();
 	  questionss = questionss + qqqq.slice(16).html();
 	
-  //kkkk = hhh + questionss + www;      
-    kkkk =   qqqq.slice(0).children('.c_1_text').children('p').slice(0).html();
+  kkkk = hhh + questionss + www;      
+  //  kkkk =   qqqq.slice(0).children('.c_1_text').children('p').slice(0).html();
 
    } catch (err) {
     
