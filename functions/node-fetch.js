@@ -307,10 +307,12 @@ mmm=88;
      let   qqqqq = cheerio.load($resultsPage.html());
 	
 	  let qqqq = qqqqq('div[class="suanming_s"]').children('div[class="suanming_c_1"]'); 
-	  let quuu = qqqq.slice(0).children('.c_1_text').html();
+	 // let quuu = qqqq.slice(0).children('.c_1_text').html();
+	   let quuu = qqqq.slice(0).children('.c_1_text')
+	  quuu= quuu.children('p').slice(2,3).empty();
 	  const $r88 = cheerio.load(qqqq.slice(1).html());
 	  $r88('table').empty();
-	  let questionss = quuu + '</div><div class="c_1_title">' + $r88('div[class="c_1_title"]').html()  + '</div><div class="c_1_text">'  + $r88('div[class="c_1_text"]').html()  + "</div>" ;
+	  let questionss = quuu.html() + '</div><div class="c_1_title">' + $r88('div[class="c_1_title"]').html()  + '</div><div class="c_1_text">'  + $r88('div[class="c_1_text"]').html()  + "</div>" ;
 	
 	  questionss = questionss + qqqq.slice(2).html();
 	  questionss = questionss + qqqq.slice(3).html();
