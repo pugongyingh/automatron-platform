@@ -292,15 +292,16 @@ var d2 = new Date(ttt);
 			body: uuu
 		}, function (err, res, body) {
 		if(err || res.statusCode != 200){
-			callback(false);
-			return ;
+			//callback(false);
+			//return ;
+			 kkkk="77788";
 		}
 	})
 	.pipe(iconv.decodeStream("GBK"))
 	.pipe(iconv.encodeStream('utf-8'))
 	.collect(function(err, body){
-		kkkk = body.toString();
-		
+		//kkkk = body.toString();
+		 kkkk="77799";
 		
 	})
 	   
