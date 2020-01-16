@@ -298,8 +298,9 @@ var d2 = new Date(ttt);
 		}
 	})
 	.pipe(iconv.decodeStream("GBK"))
-	.pipe(iconv.encodeStream('utf-8'))
+	//.pipe(iconv.encodeStream('utf-8'))
 	.collect(function(err, body){
+			// const $resultsPage = cheerio.load(body, { decodeEntities: false });
 		kkkk = body.toString();
 		// kkkk="77799";
 		
