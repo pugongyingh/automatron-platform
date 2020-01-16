@@ -328,8 +328,8 @@ mmm=88;
 	  questionss = questionss + qqqq.slice(15).html();
 	  questionss = questionss + qqqq.slice(16).html();
 	
-  kkkk = hhh + questionss + www;      
-      
+  //kkkk = hhh + questionss + www;      
+    kkkk =   quuu.slice(1).html();
 
    } catch (err) {
     
